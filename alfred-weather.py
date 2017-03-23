@@ -1,7 +1,10 @@
 from alfred.modules.api.a_base_module import ABaseModule
 from alfred.modules.api.a_heading import AHeading
+from alfred.modules.api.a_ready_template import AReadyTemplate
 from datetime import datetime
 import requests
+import os
+
 
 class AlfredWeather(ABaseModule):
 
@@ -23,13 +26,9 @@ class AlfredWeather(ABaseModule):
 
 
     def construct_view(self):
-        for i in range (len(self.forecast_data)):
-            h1 = AHeading(1, "Date: " + str(self.forecast_data[i]['date_time']))
-            h2 = AHeading(2, "Max temp: " + str(self.forecast_data[i]['max_temp']) + "°С")
-            h3 = AHeading(2, "Min temp: " + str(self.forecast_data[i]['min_temp']) + "°С")
-            h4 = AHeading(2, "Status: " + str(self.forecast_data[i]['status']))
 
-            self.add_component(h1)
-            self.add_component(h2)
-            self.add_component(h3)
-            self.add_component(h4)
+        view = AReadyTemplate(self.forecast_data,
+        os.path.dirname(os.path.abspath(__file__)),
+        'weather.html'
+        )
+        self.add_component(view)
