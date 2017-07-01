@@ -39,7 +39,7 @@ class AlfredWeather(ABaseModule):
 
         self.add_component(row)
 
-
+    @classmethod
     def image_link_for_weather_description(self, icon_num):
         link_dict = {
             "09": "http://7bna.net/images/rainy-day-pictures/rainy-day-pictures-6.jpg",
