@@ -14,7 +14,7 @@ class AlfredWeather(ABaseModule):
     def callback(self):
         r = requests.get("http://api.openweathermap.org/data/2.5/forecast/daily?q=Cairo&units=metric&appid=7e73695b9106e411858e94e01532d30d")
         json_data = r.json()
-        print(json_data)
+
         for i in range(json_data['cnt']):
             tmp={'date_time' : datetime.fromtimestamp(json_data["list"][i]['dt']).strftime("%a, %d"),
                  'max_temp'  : int(json_data["list"][i]['temp']['day']),
