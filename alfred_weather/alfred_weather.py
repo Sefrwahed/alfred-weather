@@ -12,7 +12,19 @@ class AlfredWeather(ABaseModule):
         self.forecast_data=[]
 
     def callback(self):
-        r = requests.get("http://api.openweathermap.org/data/2.5/forecast/daily?q=Cairo&units=metric&appid=7e73695b9106e411858e94e01532d30d")
+        city = 'Cairo'
+        try:
+            city = self.entities['GPE'][0][0]
+        except:
+            if 'default_city' in self.settings.settings_dict:
+                city = self.settings.settings_dict['default_city']
+
+        url = ('http://api.openweathermap.org/data/2.5/forecast/daily' +
+               '?q=' + str(city) +
+               '&units=metric' +
+               '&appid=7e73695b9106e411858e94e01532d30d')
+        r = requests.get(url)
+
         json_data = r.json()
 
         for i in range(json_data['cnt']):
