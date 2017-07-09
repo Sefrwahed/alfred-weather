@@ -1,5 +1,5 @@
 from alfred.modules.api.a_base_module import ABaseModule
-from alfred.modules.api.view_components import ACard, AParagraph, ARow, AColumn
+from alfred.modules.api.view_components import ACard, AParagraph, ARow, AColumn, AHeading
 from datetime import datetime
 import requests
 import os
@@ -50,7 +50,8 @@ class AlfredWeather(ABaseModule):
                 image_url=self.image_link_for_weather_description(d['icon']),
                 title_on_image=True
             )))
-
+            
+        self.add_component(entity_row)
         self.add_component(row)
 
     @classmethod
