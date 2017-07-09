@@ -10,17 +10,17 @@ class AlfredWeather(ABaseModule):
     def __init__(self, *args, **kwargs):
         ABaseModule.__init__(self,*args,**kwargs)
         self.forecast_data=[]
+        self.city = 'Cairo'
+        
 
     def callback(self):
-        city = 'Cairo'
         try:
-            city = self.entities['GPE'][0][0]
+            self.city = self.entities['GPE'][0][0]
         except:
-            if 'default_city' in self.settings.settings_dict:
-                city = self.settings.settings_dict['default_city']
+            self.city = self.settings.settings_dict.get('default_city', 'Cairo')
 
         url = ('http://api.openweathermap.org/data/2.5/forecast/daily' +
-               '?q=' + str(city) +
+               '?q=' + str(self.city) +
                '&units=metric' +
                '&appid=7e73695b9106e411858e94e01532d30d')
         r = requests.get(url)
@@ -37,6 +37,8 @@ class AlfredWeather(ABaseModule):
             self.forecast_data.append(tmp)
 
     def construct_view(self):
+        entity_row = ARow(AHeading(4, self.city, **{'class': 'white-text'}))
+
         row = ARow()
 
         for d in self.forecast_data:
