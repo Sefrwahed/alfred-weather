@@ -13,8 +13,8 @@ class AlfredWeatherWidget(ABaseWidget):
 
         self.forecast = {
             'date_time': datetime.fromtimestamp(json_data['dt']).strftime("%a, %d"),
-            'max_temp' : int(json_data['main']['temp_min']),
-            'min_temp' : int(json_data['main']['temp_max']),
+            'max_temp' : int(json_data['main']['temp_max']),
+            'min_temp' : int(json_data['main']['temp_min']),
             'icon'     : json_data['weather'][0]['icon'][0:-1],
             'status'   : json_data['weather'][0]['description']
         }
